@@ -3,6 +3,7 @@ require "pry"
 def balanced(array)
   open_array = []
   close_array = []
+  #Default is yes until otherwise determined
   balanced = "Yes"
   array.each do |symbol| 
     #build new arrays of open and closed brackets
@@ -16,11 +17,14 @@ def balanced(array)
   end
   balanced_array = []
   open_array.each_index do |index|
-    #if 1st bracket of open matches last bracket of close it's balanced
+    #if the current bracket being evaluated in the open array matches the opposite of the 
+    #reverse index of the closed array, it's balanced 
     if open_array[index] == "{" && close_array[(index + 1) * -1] == "}" ||
       open_array[index] == "(" && close_array[(index + 1) * -1] == ")" ||
       open_array[index] == "[" && close_array[(index + 1) * -1] == "]"
       balanced_array << "Yes"
+      #this is a little shitty, but I wanted to make sure it didn't return yes just because the last iteration of the loop
+      #returned true. It might not even be hitting this conditional, I'll double check.
       if balanced_array.include? "No"
         balanced = "No"
       end
